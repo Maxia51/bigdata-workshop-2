@@ -1,0 +1,24 @@
+title Infrastructure
+
+Web->Kafka: Send data
+note right of Kafka: Kafka will put data into Broker
+
+Kafka->Flume: Flume collect big amount of data
+Kafka->Spark: Spark collect Data
+
+
+Flume->Hadoop: Flume insert data into HDFS system (Hadoop File System)
+
+Hadoop->Cassandra: Save Data
+Cassandra->Hadoop: Use Data
+
+Spark->Cassandra: Save Data
+Cassandra->Spark: Use Data
+
+note right of Spark: Realtime Processing
+note right of Hadoop: Batch Processing
+note right of Cassandra: Cassandra will store Batch and Realtime data
+
+Cassandra->WebApplication: Print Data
+
+note right of WebApplication: Display data into Application

@@ -1,0 +1,8 @@
+version: "3"
+services:
+  kafka:
+    image: wurstmeister/kafka
+    container_name: ws_kafka
+    ports:
+      - 9092:9092
+      - 9094:9094
