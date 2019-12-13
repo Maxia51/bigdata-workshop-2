@@ -2,7 +2,42 @@ version: "3"
 services:
   kafka:
     image: wurstmeister/kafka
+    # Remove name for scale
     container_name: ws_kafka
     ports:
       - 9092:9092
+      - 9093:9093
       - 9094:9094
+      - 9997:9997
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=kafka
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_PORT=9092
+      - KAFKA_CREATE_TOPICS=TopicMoumou1:1:1,TopicMoumou2:1:1
+      - JMX_PORT=9997
+      - KAFKA_JMX_OPTS=-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=127.0.0.1 -Dcom.sun.management.jmxremote.rmi.port=9997
+      - KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka:9093,OUTSIDE://localhost:9092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      - KAFKA_LISTENERS=INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
+      - KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE
+  kafka-ui:
+    image: sheepkiller/kafka-manager
+    container_name: ws_kafka_ui
+    ports:
+      - 9000:9000
+    environment:
+      - ZK_HOSTS=zookeeper:2181
+  zookeeper:
+    image: zookeeper
+    container_name: ws_zookeeper
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+  zookeeper-ui:
+    image: tobilg/zookeeper-webui
+    container_name: ws_zookeeper_ui
+    ports:
+      - 8080:8080
+    environment:
+      - ZK_DEFAULT_NODE=zookeeper:2181
