@@ -2,7 +2,7 @@ from pykafka import KafkaClient
 
 client = KafkaClient(hosts="localhost:9092")
 
-topic = client.topics['test']
+topic = client.topics['TopicMoumou2']
 
 consumer = topic.get_simple_consumer()
 
