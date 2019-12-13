@@ -7,7 +7,6 @@ services:
     ports:
       - 9092:9092
       - 9093:9093
-      - 9094:9094
       - 9997:9997
     environment:
       - KAFKA_ADVERTISED_HOST_NAME=kafka
